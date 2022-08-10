@@ -1,0 +1,31 @@
+version: '3.4'
+
+services: 
+
+  frontend:
+    image: pizzafrontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    environment: 
+      - backendUrl=http://backend
+    ports:
+      - "5902:80"
+    depends_on: 
+      - backend
+  backend:
+    image: pizzabackend
+    build: 
+      context: backend
+      dockerfile: Dockerfile
+    ports: 
+      - "5000:80"
+
+#Primeiro, ele cria o site de front-end e dá a ele o nome pizza frontend. 
+#O código instrui o Docker a criá-lo, apontando para o Dockerfile encontrado na pasta frontend.
+#Em seguida, o código define uma variável de ambiente para o site: backendUrl=http://backend. 
+#Por fim, esse código abre uma porta e declara que ela depende do serviço de back-end.
+
+#O serviço de backend é criado em seguida. Ele se chama pizzabackend. 
+#Ele é criado com base no Dockerfile criado na pasta backend. 
+#O último comando especifica qual porta deve ser aberta.
